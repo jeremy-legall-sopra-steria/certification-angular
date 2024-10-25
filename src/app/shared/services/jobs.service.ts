@@ -14,29 +14,22 @@ export class JobsService {
   ) {
     // Fetch the jobs
     this.jobsHttpService.getJobs().subscribe((jobs: Job[]) => {
+      const favoritesJobsIds = this.getLocalStorageFavoritesJobsIds();
+      jobs.forEach((job) => {
+        job.isFavorite = favoritesJobsIds.includes(job.id);
+      });
+      console.log(favoritesJobsIds);
       this._jobs.set(jobs);
     });
   }
 
-  private _jobs = signal<Job[] | null>(null);
+  private readonly _jobs = signal<Job[] | null>(null);
 
   /**
    * Get the jobs
    */
   get jobs(): Signal<Job[] | null> {
     return this._jobs.asReadonly();
-  }
-
-  /**
-   * Get a job by it's id
-   */
-  public getJobById(jobId: number): Observable<JobDetails> {
-    return this.jobsHttpService.getJobById(jobId).pipe(
-      catchError(() => {
-        this.router.navigate(['/jobs']);
-        return EMPTY;
-      })
-    );
   }
 
   /**
@@ -53,6 +46,17 @@ export class JobsService {
   }
 
   /**
+   * Get a job by it's id
+   */
+  public getJobById(jobId: number): Observable<JobDetails> {
+    return this.jobsHttpService.getJobById(jobId).pipe(
+      catchError(() => {
+        this.router.navigate(['/jobs']);
+        return EMPTY;
+      })
+    );
+  }
+  /**
    * Set a job as favorite
    * @param jobId The job id
    */
@@ -65,5 +69,20 @@ export class JobsService {
         j.id === jobId ? { ...j, isFavorite: !j.isFavorite } : j
       );
     });
+    const ids = this.favoriteJobs().map((job) => job.id);
+    // Save the favorite jobs ids in the local storage
+    localStorage.setItem('favoritesJobsIds', JSON.stringify(ids));
+  }
+
+  /**
+   * Get the favorite jobs ids from the local storage
+   * @returns The favorite jobs ids from the local storage
+   */
+  private getLocalStorageFavoritesJobsIds(): number[] {
+    const favoritesJobsIds = localStorage.getItem('favoritesJobsIds');
+    if (favoritesJobsIds === null) {
+      return [];
+    }
+    return JSON.parse(favoritesJobsIds);
   }
 }

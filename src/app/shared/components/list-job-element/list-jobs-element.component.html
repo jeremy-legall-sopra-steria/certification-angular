@@ -9,6 +9,6 @@
   *ngIf="showStar"
   class="icon-star"
   (click)="setJobAsFavorite(job.id)"
-  [class.favorite]="job.isFavorite"
+  [class.active]="job.isFavorite"
   >favorite</span
 >
