@@ -1,0 +1,14 @@
+<img [src]="job.companyLogo" alt="Company logo" />
+<div (click)="navigateToDetails(job.id)">
+  <span
+    ><strong> {{ job.title }}</strong></span
+  >
+  <span>Company : {{ job.companyName }} Reference {{ job.reference }}</span>
+</div>
+<span
+  *ngIf="showStar"
+  class="icon-star"
+  (click)="setJobAsFavorite(job.id)"
+  [class.favorite]="job.isFavorite"
+  >favorite</span
+>

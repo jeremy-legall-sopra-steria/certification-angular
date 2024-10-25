@@ -1,0 +1,24 @@
+<a routerLink="/jobs">Home</a>
+@if(job$ | async; as job){
+
+<div>
+  <img [src]="job.companyLogo" alt="Company logo" />
+  <div>
+    <span>{{ job.companyName }} - {{ job.title }}</span>
+    <div>
+      <span *ngFor="let type of job.types">{{ type }}</span>
+      <span
+        *ngFor="let industrie of job.industries"
+        [innerHtml]="industrie | safeHtml"
+      ></span>
+    </div>
+  </div>
+</div>
+
+<span><strong>Publish Date:</strong> {{ job.publishDate }}</span>
+<span><strong>Location:</strong> {{ job.location }}</span>
+<span> <strong>Reference :</strong> {{ job.reference }}</span>
+<p><strong>Description :</strong></p>
+<div [innerHTML]="job.description | safeHtml"></div>
+
+}

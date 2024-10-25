@@ -1,0 +1,42 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex-wrap: wrap;
+
+  a[routerLink="/jobs"]::before {
+    /* Cibler le lien spécifique */
+    content: "\1f3e0"; /* Code unicode correct pour la maison */
+    margin-right: 5px; /* Ajouter un espace entre l'icône et le texte */
+  }
+
+  img {
+    height: 80px;
+    width: 80px;
+  }
+
+  div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    & div {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      & div {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        & span {
+          background-color: #5c7fb0;
+          border-radius: 5px;
+          padding: 5px;
+          color: white;
+        }
+      }
+    }
+  }
+}

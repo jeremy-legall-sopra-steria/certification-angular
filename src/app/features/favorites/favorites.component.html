@@ -1,0 +1,13 @@
+<ng-container *ngIf="jobs() as jobs; else loading">
+  <ng-container *ngIf="jobs.length > 0; else noData">
+    @for( job of jobs; track job.id){
+    <app-list-jobs-element [job]="job" [showStar]="false" />}
+  </ng-container>
+  <ng-template #noData>
+    <p>You don't have any favorite job.</p>
+  </ng-template>
+</ng-container>
+
+<ng-template #loading>
+  <p>Chargement...</p>
+</ng-template>

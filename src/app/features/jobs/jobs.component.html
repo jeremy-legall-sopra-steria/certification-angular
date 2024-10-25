@@ -1,0 +1,17 @@
+<ng-container *ngIf="jobs() as jobs; else loading">
+  <ng-container *ngIf="jobs.length > 0; else noData">
+    @for( job of jobs; track job.id){
+    <app-list-jobs-element
+      (jobIdFavoriteEvt)="setJobAsFavorite($event)"
+      [job]="job"
+      [showStar]="true"
+    />}
+  </ng-container>
+  <ng-template #noData>
+    <p>No job, sorry :)</p>
+  </ng-template>
+</ng-container>
+
+<ng-template #loading>
+  <p>Loading jobs...</p>
+</ng-template>

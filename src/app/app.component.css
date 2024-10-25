@@ -1,0 +1,35 @@
+:host {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 1rem 5rem 0 5rem;
+
+  router-outlet {
+    flex: 1 0 100%;
+  }
+  h1 {
+    flex: 1 0 100%;
+    text-align: center;
+  }
+  nav {
+    display: flex;
+    margin-bottom: 2rem;
+    flex: 1 0 100%;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    border: 1px black solid;
+    a:first-child {
+      border-right: 1px black solid;
+    }
+    a {
+      flex: 0 0 50%;
+      text-align: center;
+      line-height: 3rem;
+      height: 3rem;
+      &.active {
+        background-color: #3b4252;
+        color: white;
+      }
+    }
+  }
+}
